@@ -17,10 +17,11 @@ class ConfigurationCommand extends Command
     {
         $this->setName('config')->setDescription('Displays information about application');
     }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $yamlParser = new Parser();
-        $expectedValues = $yamlParser->parse(file_get_contents(dirname(__FILE__).'/../../bin/parameters.yml.dist'));
+        $expectedValues = $yamlParser->parse(file_get_contents(dirname(__FILE__).'/../../config/parameters.yml.dist'));
         $output->writeln("<info>Configuration des accès à gitlab</info>\n");
 
 

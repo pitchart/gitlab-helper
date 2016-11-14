@@ -5,7 +5,7 @@
         {
             "name": "*",
             "exclude": ["Tests"],
-            "in": "src"
+            "in": ["src", "config"]
         },
         {
             "name": "*.php",
