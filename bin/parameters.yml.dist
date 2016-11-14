@@ -1,0 +1,4 @@
+parameters:
+    gitlab.host: ~
+    gitlab.token: ~
+    gitlab.api_version: v3

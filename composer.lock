@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2d06e6bc97d941131dcd971049b2cd0e",
-    "content-hash": "5b5aeb2b9451ee5ae182cfa99ed48e0d",
+    "hash": "932e78c17f372672783350d1bafdc4af",
+    "content-hash": "6f98513e7c76893286f5e1e6546ea700",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -177,6 +177,16 @@
                 "uri"
             ],
             "time": "2016-06-24 23:00:38"
+        },
+        {
+            "name": "pitchart/collection",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@gitlab.alienor.net:j.vitte/collection.git",
+                "reference": "master"
+            },
+            "type": "package"
         },
         {
             "name": "psr/http-message",
