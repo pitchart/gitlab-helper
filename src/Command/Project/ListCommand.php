@@ -5,6 +5,7 @@ namespace Pitchart\GitlabHelper\Command\Project;
 use Pitchart\Collection\Collection;
 use Pitchart\GitlabHelper\Service\GitlabClient;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -41,12 +42,15 @@ class ListCommand extends Command implements ContainerAwareInterface
         ));
         $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
 
+        $table = new Table($output);
+        $table->setHeaders(array('Name', 'URL'))->setStyle('borderless');
+
         $projects = Collection::from($datas);
 
-        $projects->each(function($project) use ($output) {
-            $output->writeln(sprintf('<info>%s</info> : %s', $project->name, $project->ssh_url_to_repo, $project->description));
+        $projects->each(function($project) use ($table) {
+            $table->addRow(array('<comment>'.$project->name_with_namespace.'</comment>', $project->ssh_url_to_repo));
         });
-
+        $table->render();
     }
 
 
