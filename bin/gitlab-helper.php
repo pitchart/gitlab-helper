@@ -41,6 +41,7 @@ else {
         new Command\ConfigurationCommand(),
         new Command\Group\ListCommand(),
         new Command\Group\ProjectsCommand(),
+        new Command\Project\ListCommand(),
     ]);
 }
 $application->run();
