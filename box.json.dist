@@ -1,11 +1,15 @@
 {
     "chmod": "0755",
     "compression": "GZ",
+    "files": [
+        "config/parameters.yml.dist",
+        "config/services.xml"
+    ],
     "finder": [
         {
             "name": "*",
             "exclude": ["Tests"],
-            "in": ["src", "config"]
+            "in": "src"
         },
         {
             "name": "*.php",

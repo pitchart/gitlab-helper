@@ -26,8 +26,8 @@ else {
     $loader = new YamlFileLoader($container, new FileLocator(getenv('HOME')));
     $loader->load('.gitlab-helper.yml');
 
-    $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../config/'));
-    $loader->load('services.xml');
+    $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config/'));
+    $loader->load('services.yml');
 
     $container->compile();
 
