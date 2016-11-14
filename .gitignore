@@ -1,2 +1,2 @@
-vendor/
-box-*.phar
+
+!gitlab-helper.phar
