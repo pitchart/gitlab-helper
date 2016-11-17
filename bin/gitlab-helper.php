@@ -36,8 +36,9 @@ else {
     $defaultCommand = new Command\InformationCommand();
     $application->add($defaultCommand);
     $application->setDefaultCommand($defaultCommand->getName());
-    //gitlab commands
+
     $application->addCommands([
+        new Command\SelfUpdateCommand(),
         new Command\ConfigurationCommand(),
         new Command\Group\ListCommand(),
         new Command\Group\ProjectsCommand(),

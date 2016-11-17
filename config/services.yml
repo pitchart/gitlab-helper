@@ -1,3 +1,6 @@
+parameters:
+  selfupdate.phar_url: http://pitchart.github.io/gitlab-helper/gitlab-helper.phar
+  selfupdate.version_url: http://pitchart.github.io/gitlab-helper/gitlab-helper.phar.version
 services:
   http_client:
     class: 'GuzzleHttp\Client'
