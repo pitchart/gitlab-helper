@@ -34,8 +34,8 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $updater = new Updater(null, false);
-        $updater->getStrategy()->setPharUrl('http://pitchart.github.io/cli-app-demo/cli-app-demo.phar');
-        $updater->getStrategy()->setVersionUrl('http://pitchart.github.io/cli-app-demo/cli-app-demo.phar.version');
+        $updater->getStrategy()->setPharUrl($this->container->getParameter('selfupdate.phar_url'));
+        $updater->getStrategy()->setVersionUrl($this->container->getParameter('selfupdate.version_url'));
         try {
             $result = $updater->hasUpdate();
             if ($result) {
