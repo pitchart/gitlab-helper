@@ -30,6 +30,6 @@ box:
 	php box-2.7.4.phar build
 
 sha1:
-	sha1sum dist/gitlab-helper.phar > dist/gitlab-helper.phar.version
+	cd dist/ && sha1sum gitlab-helper.phar > gitlab-helper.phar.version
 
 .PHONY: build box sha1
