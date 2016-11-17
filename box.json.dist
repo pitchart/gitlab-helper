@@ -1,10 +1,7 @@
 {
     "chmod": "0755",
     "compression": "GZ",
-    "files": [
-        "config/parameters.yml.dist",
-        "config/services.xml"
-    ],
+    "directories": ["config"],
     "finder": [
         {
             "name": "*",
