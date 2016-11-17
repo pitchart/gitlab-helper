@@ -24,6 +24,7 @@ class ListCommand extends Command implements ContainerAwareInterface
             ->addArgument('search', InputArgument::OPTIONAL, 'Search criteria for project names', '')
             ->addOption('orderby', null, InputOption::VALUE_OPTIONAL, 'Order results by <comment>id</comment>, <comment>name</comment>, <comment>path</comment>, <comment>created_at</comment>, <comment>updated_at</comment> or <comment>last_activity_at</comment>', 'created_ad')
             ->addOption('sort', null, InputOption::VALUE_OPTIONAL, 'Return requests sorted in <comment>asc</comment> or <comment>desc</comment> order. Default is <comment>desc</comment>', 'desc')
+            ->addOption('nb', null, InputOption::VALUE_OPTIONAL, 'Number of items to display', 50)
         ;
     }
 
@@ -37,9 +38,11 @@ class ListCommand extends Command implements ContainerAwareInterface
             'query' => [
                 'search' => $input->getArgument('search'),
                 'order_by' => $input->getOption('orderby'),
-                'sort' => $input->getOption('sort')
+                'sort' => $input->getOption('sort'),
+                'per_page' => $input->getOption('nb'),
             ],
         ));
+
         $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
 
         $table = new Table($output);
