@@ -1,7 +1,7 @@
 ### Variables
 
 # Applications
-COMPOSER ?= /usr/bin/env composer
+COMPOSER ?= php ../composer.phar
 
 ### Helpers
 all: clean depend
@@ -10,10 +10,10 @@ all: clean depend
 
 ### Dependencies
 depend:
-	${COMPOSER} install --no-progress --prefer-source
+	${COMPOSER} install --no-progress --optimize-autoloader
 
 build-depend:
-    ${COMPOSER} install --no-progress --prefer-source --no-dev
+	${COMPOSER} install --no-progress --no-dev
 
 .PHONY: depend build-depend
 
@@ -24,10 +24,10 @@ clean:
 .PHONY: clean
 
 ### Building
-build: clean box sha1
+build: clean build-depend box sha1
 
 box:
-	php box.phar build
+	php box-2.7.4.phar build
 
 sha1:
 	sha1sum dist/gitlab-helper.phar > dist/gitlab-helper.phar.version
