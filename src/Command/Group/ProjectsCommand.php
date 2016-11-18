@@ -25,6 +25,7 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
             ->addArgument('search', InputArgument::OPTIONAL, 'Search criteria for project names', '')
             ->addOption('orderby', null, InputOption::VALUE_OPTIONAL, 'Order results by <comment>id</comment>, <comment>name</comment>, <comment>path</comment>, <comment>created_at</comment>, <comment>updated_at</comment> or <comment>last_activity_at</comment>')
             ->addOption('sort', null, InputOption::VALUE_OPTIONAL, 'Return requests sorted in <comment>asc</comment> or <comment>desc</comment> order. Default is <comment>desc</comment>')
+            ->addOption('nb', null, InputOption::VALUE_OPTIONAL, 'Number of items to display', 50)
         ;
     }
 
@@ -36,6 +37,7 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
         $response = $gitlabClient->request('GET', sprintf('groups/%s/projects', $input->getArgument('group')), array(
             'query' => [
                 'search' => $input->getArgument('search'),
+                'per_page' => $input->getOption('nb'),
             ],
         ));
         $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());

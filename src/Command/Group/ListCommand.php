@@ -8,6 +8,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -21,6 +22,7 @@ class ListCommand extends Command implements ContainerAwareInterface
         $this->setName('group:list')
             ->setDescription('List groups from gitlab')
             ->addArgument('search', InputArgument::OPTIONAL, 'Search criteria for project names', '')
+            ->addOption('nb', null, InputOption::VALUE_OPTIONAL, 'Number of items to display', 50)
         ;
     }
 
@@ -33,6 +35,7 @@ class ListCommand extends Command implements ContainerAwareInterface
         $response = $gitlabClient->request('GET', 'groups', array(
             'query' => [
                 'search' => $input->getArgument('search'),
+                'per_page' => $input->getOption('nb'),
             ],
         ));
         $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
