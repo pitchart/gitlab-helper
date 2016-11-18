@@ -55,7 +55,7 @@ EOF
                 $output->writeln('Your application is already up to date');
             }
         } catch (\Exception $e) {
-            $output->writeln('<error>Well, something happened! Either an oopsie or something involving hackers.</error>');
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
         }
     }
 }
