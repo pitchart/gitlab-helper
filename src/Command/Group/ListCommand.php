@@ -45,14 +45,10 @@ class ListCommand extends Command implements ContainerAwareInterface
         $table = new Table($output);
         $table->setHeaders(array('Name', 'Description', 'Path'))->setStyle('borderless');
 
-        $groups->each(function($group) use ($table) {
+        $groups->each(function ($group) use ($table) {
             $table->addRow(array('<comment>'.$group->name.'</comment>', $group->description, $group->path));
         });
 
         $table->render();
-
     }
-
-
-
 }

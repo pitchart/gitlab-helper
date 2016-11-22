@@ -10,7 +10,6 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Yaml;
 
-
 class ConfigurationCommand extends Command
 {
     protected function configure()
@@ -37,5 +36,4 @@ class ConfigurationCommand extends Command
 
         file_put_contents(getenv('HOME').'/.gitlab-helper.yml', "# This file is auto-generated during the composer install\n".Yaml::dump(array('parameters' => $actualValues)));
     }
-
 }

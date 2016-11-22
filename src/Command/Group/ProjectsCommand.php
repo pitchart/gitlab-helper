@@ -46,7 +46,7 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
         $table->setHeaders(array('Name', 'Path'))->setStyle('borderless');
         $projects = Collection::from($datas);
 
-        $projects->each(function($project) use ($table) {
+        $projects->each(function ($project) use ($table) {
             $table->addRow(array('<comment>'.$project->name_with_namespace.'</comment>', $project->ssh_url_to_repo));
         });
 

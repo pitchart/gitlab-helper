@@ -2,7 +2,6 @@
 
 namespace Pitchart\GitlabHelper\Command\Group;
 
-
 use Pitchart\Collection\Collection;
 use Pitchart\GitlabHelper\Service\GitlabClient;
 use Symfony\Component\Console\Command\Command;
@@ -45,11 +44,10 @@ class MembersCommand extends Command implements ContainerAwareInterface
         $table = new Table($output);
         $table->setHeaders(array('ID', 'Name', 'State'))->setStyle('borderless');
 
-        $members->each(function($member) use ($table) {
+        $members->each(function ($member) use ($table) {
             $table->addRow(array('<comment>'.$member->id.'</comment>', $member->name, $member->state));
         });
 
         $table->render();
     }
-
 }

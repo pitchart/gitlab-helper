@@ -2,7 +2,6 @@
 
 namespace Pitchart\GitlabHelper\Command\Group;
 
-
 use GuzzleHttp\Exception\ClientException;
 use Pitchart\GitlabHelper\Service\GitlabClient;
 use Symfony\Component\Console\Command\Command;
@@ -50,15 +49,11 @@ class CreateCommand extends Command implements ContainerAwareInterface
             if ($response->getStatusCode() == 201) {
                 $output->writeln(sprintf('<info>The group "%s" was created successfully.</info>', $input->getArgument('name')));
             }
-        }
-        catch (ClientException $e) {
+        } catch (ClientException $e) {
             $response = $e->getResponse();
 
             $output->writeln(sprintf('<error>Could not create group "%s :".</error>', $input->getArgument('name')));
             $output->writeln('<error>'.$response->getBody()->getContents().'</error>');
         }
-
-
     }
-
 }

@@ -50,8 +50,7 @@ EOF
                         $output->writeln(sprintf('Application updated to version <comment>%s</comment>', $updater->getNewVersion()));
                     }
                 }
-            }
-            else {
+            } else {
                 $output->writeln('Your application is already up to date');
             }
         } catch (\Exception $e) {

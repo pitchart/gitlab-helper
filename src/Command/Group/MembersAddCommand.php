@@ -2,7 +2,6 @@
 
 namespace Pitchart\GitlabHelper\Command\Group;
 
-
 use GuzzleHttp\Exception\ClientException;
 use Pitchart\Collection\Collection;
 use Pitchart\GitlabHelper\Service\GitlabClient;
@@ -35,7 +34,7 @@ class MembersAddCommand extends Command implements ContainerAwareInterface
         $gitlabClient = $this->container->get('gitlab_client');
         $emails = Collection::from($input->getArgument('emails'));
 
-        $emails->each(function($email) use ($gitlabClient, $input, $output) {
+        $emails->each(function ($email) use ($gitlabClient, $input, $output) {
             try {
                 $response = $gitlabClient->request('GET', 'users', array(
                     'query' => [
@@ -54,18 +53,14 @@ class MembersAddCommand extends Command implements ContainerAwareInterface
                             ],
                         ));
                         $output->writeln(sprintf("<info>\u{2713} </info> ".'User <info>%s</info> added to group <info>%s</info>', $email, $input->getArgument('group')));
-                    }
-                    catch (ClientException $e) {
+                    } catch (ClientException $e) {
                         $response = \GuzzleHttp\json_decode($e->getResponse()->getBody()->getContents());
                         $output->writeln(sprintf("<error>\u{2A2F} ".'Could not add user %s to group %s : %s</error>', $email, $input->getArgument('group'), $response->message));
                     }
                 }
-            }
-            catch (ClientException $e) {
+            } catch (ClientException $e) {
                 $output->writeln(sprintf('<error>Could not find user for email %s</error>', $email));
             }
-
         });
     }
-
 }
