@@ -38,7 +38,7 @@ phpcbf:
 	vendor/bin/phpcbf --standard=PSR2 --extensions=php src/
 	vendor/bin/phpcbf --standard=PSR2 --extensions=php bin/gitlab-helper.php
 
-.PHONY: phpbcf
+.PHONY: phpcbf
 
 ### QA
 qa: lint phpmd phpcs phpcpd
