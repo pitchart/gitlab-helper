@@ -44,6 +44,7 @@ else {
         new Command\Group\ListCommand(),
         new Command\Group\ProjectsCommand(),
         new Command\Group\MembersCommand(),
+        new Command\Group\MembersAddCommand(),
         new Command\Project\ListCommand(),
     ]);
 }
