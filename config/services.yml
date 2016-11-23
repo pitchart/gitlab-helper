@@ -6,5 +6,5 @@ services:
     class: 'GuzzleHttp\Client'
     arguments: [{'base_uri': '%gitlab.host%', 'headers': {'PRIVATE-TOKEN': '%gitlab.token%'}}]
   gitlab_client:
-    class: Pitchart\GitlabHelper\Service\GitlabClient
+    class: 'Pitchart\GitlabHelper\Service\GitlabClient'
     arguments: ['@http_client', '%gitlab.token%', '%gitlab.api_version%']
