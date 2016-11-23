@@ -46,6 +46,8 @@ else {
         new Command\Group\MembersCommand(),
         new Command\Group\MembersAddCommand(),
         new Command\Project\ListCommand(),
+        new Command\Key\ListCommand(),
+        new Command\Key\AddCommand(),
     ]);
 }
 $application->run();
