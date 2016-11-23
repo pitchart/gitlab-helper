@@ -35,8 +35,8 @@ sha1:
 .PHONY: build box sha1
 
 phpcbf:
-	vendor/bin/phpcbf --standard=PSR2 --extensions=php src/
-	vendor/bin/phpcbf --standard=PSR2 --extensions=php bin/gitlab-helper.php
+	php vendor/bin/phpcbf --standard=PSR2 --extensions=php src/
+	php vendor/bin/phpcbf --standard=PSR2 --extensions=php bin/gitlab-helper.php
 
 .PHONY: phpcbf
 
@@ -47,24 +47,24 @@ lint:
 	find ./src -name "*.php" -exec /usr/bin/env php -l {} \; | grep "Parse error" > /dev/null && exit 1 || exit 0
 
 phploc:
-	vendor/bin/phploc src
+	php vendor/bin/phploc src
 
 phpmd:
-	vendor/bin/phpmd --suffixes php src/ text codesize,design,naming,unusedcode,controversial
+	php vendor/bin/phpmd --suffixes php src/ text codesize,design,naming,unusedcode,controversial
 
 phpcs:
-	vendor/bin/phpcs --standard=PSR2 --extensions=php src/
+	php vendor/bin/phpcs --standard=PSR2 --extensions=php src/
 
 phpcpd:
-	vendor/bin/phpcpd src/
+	php vendor/bin/phpcpd src/
 
 .PHONY: qa lint phploc phpmd phpcs phpcpd
 
 ### Testing
 test:
-	vendor/bin/phpunit -v --colors --coverage-text
+	php vendor/bin/phpunit -v --colors --coverage-text
 
 test-report:
-	vendor/bin/phpunit -v --colors --coverage-html ./build/tests
+	php vendor/bin/phpunit -v --colors --coverage-html ./build/tests
 
 .PHONY: test
