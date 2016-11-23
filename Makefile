@@ -58,6 +58,9 @@ phpcs:
 phpcpd:
 	php vendor/bin/phpcpd src/
 
+phpmetrics:
+	php vendor/bin/phpmetrics --report-html=./qa/phpmetrics.html src/
+
 .PHONY: qa lint phploc phpmd phpcs phpcpd
 
 ### Testing

@@ -1,3 +1,4 @@
 vendor/
 dist/
 box-*.phar
+qa/
