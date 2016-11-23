@@ -19,7 +19,7 @@ class CreateCommand extends Command implements ContainerAwareInterface
     protected function configure()
     {
         $this->setName('group:create')
-            ->setDescription('Create a new gitlab group')
+            ->setDescription('Creates a new gitlab group')
             ->addArgument('name', InputArgument::REQUIRED, 'The name of the group')
             ->addArgument('path', InputArgument::REQUIRED, 'The path of the group')
             ->addOption('desc', null, InputOption::VALUE_OPTIONAL, 'The description of the group', '')

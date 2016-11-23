@@ -14,7 +14,7 @@ class ConfigurationCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('config')->setDescription('Displays information about application');
+        $this->setName('config')->setDescription('Defines application settings');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

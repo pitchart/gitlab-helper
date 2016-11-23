@@ -20,7 +20,7 @@ class MembersCommand extends Command implements ContainerAwareInterface
     protected function configure()
     {
         $this->setName('group:members')
-            ->setDescription('List members of a group')
+            ->setDescription('Lists members of a group')
             ->addArgument('group', InputArgument::REQUIRED, 'The group name')
             ->addOption('nb', null, InputOption::VALUE_OPTIONAL, 'Number of items to display', 50)
         ;

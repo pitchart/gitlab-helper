@@ -20,7 +20,7 @@ class ListCommand extends Command implements ContainerAwareInterface
     protected function configure()
     {
         $this->setName('project:list')
-            ->setDescription('List projects from a gitlab server')
+            ->setDescription('Lists projects from a gitlab server')
             ->addArgument('search', InputArgument::OPTIONAL, 'Search criteria for project names', '')
             ->addOption('orderby', null, InputOption::VALUE_OPTIONAL, 'Order results by <comment>id</comment>, <comment>name</comment>, <comment>path</comment>, <comment>created_at</comment>, <comment>updated_at</comment> or <comment>last_activity_at</comment>', 'created_ad')
             ->addOption('sort', null, InputOption::VALUE_OPTIONAL, 'Return requests sorted in <comment>asc</comment> or <comment>desc</comment> order. Default is <comment>desc</comment>', 'desc')

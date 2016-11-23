@@ -20,7 +20,7 @@ class ListCommand extends Command implements ContainerAwareInterface
     protected function configure()
     {
         $this->setName('group:list')
-            ->setDescription('List groups from gitlab')
+            ->setDescription('Lists groups from gitlab')
             ->addArgument('search', InputArgument::OPTIONAL, 'Search criteria for project names', '')
             ->addOption('nb', null, InputOption::VALUE_OPTIONAL, 'Number of items to display', 50)
         ;

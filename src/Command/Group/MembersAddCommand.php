@@ -20,7 +20,7 @@ class MembersAddCommand extends Command implements ContainerAwareInterface
     protected function configure()
     {
         $this->setName('group:members:add')
-            ->setDescription('Add members to a group')
+            ->setDescription('Adds members to a group')
             ->addArgument('group', InputArgument::REQUIRED, 'The group name')
             ->addArgument('emails', InputArgument::REQUIRED|InputArgument::IS_ARRAY, 'A list of user emails')
             ->addOption('level', null, InputOption::VALUE_OPTIONAL, 'An access level in [10, 20, 30, 40, 50]', 40)
