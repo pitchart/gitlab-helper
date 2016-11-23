@@ -27,6 +27,10 @@ class CreateCommand extends Command implements ContainerAwareInterface
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var GitlabClient $gitlabClient */
@@ -51,7 +55,6 @@ class CreateCommand extends Command implements ContainerAwareInterface
             }
         } catch (ClientException $e) {
             $response = $e->getResponse();
-
             $output->writeln(sprintf('<error>Could not create group "%s :".</error>', $input->getArgument('name')));
             $output->writeln('<error>'.$response->getBody()->getContents().'</error>');
         }

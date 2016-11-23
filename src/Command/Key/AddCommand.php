@@ -15,7 +15,10 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
-
+/**
+ * Class AddCommand
+ * @package Pitchart\GitlabHelper\Command\Key
+ */
 class AddCommand extends Command implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
@@ -29,6 +32,10 @@ class AddCommand extends Command implements ContainerAwareInterface
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var GitlabClient $gitlabClient */

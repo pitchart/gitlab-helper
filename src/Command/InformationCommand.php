@@ -13,6 +13,11 @@ class InformationCommand extends Command
     {
         $this->setName('info')->setDescription('Displays information about application');
     }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln(<<<'EOF'

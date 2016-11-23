@@ -4,6 +4,10 @@ namespace Pitchart\GitlabHelper\Service;
 
 use GuzzleHttp\Client;
 
+/**
+ * Class GitlabClient
+ * @package Pitchart\GitlabHelper\Service
+ */
 class GitlabClient
 {
     /**
@@ -34,11 +38,21 @@ class GitlabClient
         $this->token = $token;
     }
 
+    /**
+     * @param $method
+     * @param string $route
+     * @param array $options
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function request($method, $route = '', array $options = [])
     {
         return $this->httpClient->request($method, $this->getRoute($route), $options);
     }
 
+    /**
+     * @param string $route
+     * @return string
+     */
     private function getRoute($route = '')
     {
         return 'api/'.$this->version.'/'.$route;

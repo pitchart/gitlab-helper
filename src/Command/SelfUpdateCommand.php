@@ -12,6 +12,10 @@ use Humbug\SelfUpdate\Updater;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
+/**
+ * Class SelfUpdateCommand
+ * @package Pitchart\GitlabHelper\Command
+ */
 class SelfUpdateCommand extends Command implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
@@ -31,6 +35,11 @@ EOF
             )
         ;
     }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $updater = new Updater(null, false);

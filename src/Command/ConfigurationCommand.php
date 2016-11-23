@@ -17,6 +17,10 @@ class ConfigurationCommand extends Command
         $this->setName('config')->setDescription('Defines application settings');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $yamlParser = new Parser();

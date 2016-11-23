@@ -14,7 +14,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Application extends ConsoleApplication implements ContainerAwareInterface
 {
+    /**
+     * @var ContainerInterface
+     */
     protected $container;
+
     /**
      * @param ContainerInterface|null $container
      */
@@ -26,12 +30,12 @@ class Application extends ConsoleApplication implements ContainerAwareInterface
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return int|void
+     * @return int
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
         $this->injectContainer();
-        parent::doRun($input, $output);
+        return parent::doRun($input, $output);
     }
     /**
      * Inject Service container to all commands
