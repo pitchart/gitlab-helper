@@ -7,27 +7,12 @@
             "email": "j.vitte@alienor.net"
         }
     ],
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "pitchart/collection",
-                "version": "1.0.0",
-                "type": "package",
-                "source": {
-                    "url": "https://github.com/pitchart/collection.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        }
-    ],
     "require": {
         "php": ">=5.6",
         "symfony/console": "^3.1",
         "guzzlehttp/guzzle": "^6.2",
         "symfony/dependency-injection": "^3.1",
-        "pitchart/collection": "*",
+        "pitchart/collection": "^1.0",
         "symfony/config": "^3.1",
         "symfony/yaml": "^3.1",
         "padraic/phar-updater": "^1.0"
