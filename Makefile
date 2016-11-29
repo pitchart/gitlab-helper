@@ -27,7 +27,7 @@ clean:
 build: clean build-depend box sha1
 
 box:
-	php box-2.7.4.phar build
+	php box.phar build
 
 sha1:
 	cd dist/ && sha1sum gitlab-helper.phar > gitlab-helper.phar.version

@@ -1,4 +1,4 @@
 vendor/
 dist/
-box-*.phar
+box*.phar
 qa/
