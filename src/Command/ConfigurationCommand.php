@@ -34,7 +34,7 @@ class ConfigurationCommand extends Command
         $actualValues = array();
 
         foreach ($expectedValues['parameters'] as $name => $parameter) {
-            $question = new Question(sprintf('<comment>%s</comment> : ', $name), $parameter);
+            $question = new Question(sprintf('%s <comment>[%s]</comment> : ', $name, $parameter), $parameter);
             $actualValues[$name] = $questionHelper->ask($input, $output, $question);
         }
 
