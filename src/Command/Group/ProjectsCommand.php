@@ -57,7 +57,7 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
                 $patterns = array_map(function($item) {
                     return preg_quote($item, '/');
                 }, explode(' ', $search));
-                return (boolean) preg_match(sprintf('/(%s)/', implode('|', $patterns)), $item->name_with_namespace.' '.$item->description);
+                return (boolean) preg_match(sprintf('/(%s)/i', implode('|', $patterns)), $item->name_with_namespace.' '.$item->description.' '.$item->path);
             });
         }
 
