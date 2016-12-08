@@ -21,7 +21,10 @@ build-depend:
 clean:
 	rm -rf vendor
 
-.PHONY: clean
+git-master:
+	git checkout master
+
+.PHONY: clean git-master
 
 ### Building
 build: clean build-depend box sha1
