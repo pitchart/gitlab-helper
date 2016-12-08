@@ -38,9 +38,11 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
         /** @var GitlabClient $gitlabClient */
         $gitlabClient = $this->container->get('gitlab_client');
 
+        $search = $input->getArgument('search');
+
         $response = $gitlabClient->request('GET', sprintf('groups/%s/projects', $input->getArgument('group')), array(
             'query' => [
-                'search' => $input->getArgument('search'),
+                'search' => $search,
                 'per_page' => $input->getOption('nb'),
             ],
         ));
@@ -49,6 +51,15 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
         $table = new Table($output);
         $table->setHeaders(array('Name', 'Path'))->setStyle('borderless');
         $projects = Collection::from($datas);
+
+        if ($search) {
+            $projects = $projects->filter(function($item) use ($search) {
+                $patterns = array_map(function($item) {
+                    return preg_quote($item, '/');
+                }, explode(' ', $search));
+                return (boolean) preg_match(sprintf('/(%s)/', implode('|', $patterns)), $item->name_with_namespace.' '.$item->description);
+            });
+        }
 
         $projects->each(function ($project) use ($table) {
             $table->addRow(array('<comment>'.$project->name_with_namespace.'</comment>', $project->ssh_url_to_repo));
