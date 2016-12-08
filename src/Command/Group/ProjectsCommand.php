@@ -49,7 +49,7 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
         $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
 
         $table = new Table($output);
-        $table->setHeaders(array('Name', 'Path'))->setStyle('borderless');
+        $table->setHeaders(array('Name', 'Path', 'Tags'))->setStyle('borderless');
         $projects = Collection::from($datas);
 
         if ($search) {
@@ -57,12 +57,13 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
                 $patterns = array_map(function($item) {
                     return preg_quote($item, '/');
                 }, explode(' ', $search));
-                return (boolean) preg_match(sprintf('/(%s)/i', implode('|', $patterns)), $item->name_with_namespace.' '.$item->description.' '.$item->path);
+                $content = $item->name_with_namespace.' '.$item->description.' '.$item->path.''.implode(' ', $item->tag_list);
+                return (boolean) preg_match(sprintf('/(%s)/i', implode('|', $patterns)), $content);
             });
         }
 
         $projects->each(function ($project) use ($table) {
-            $table->addRow(array('<comment>'.$project->name_with_namespace.'</comment>', $project->ssh_url_to_repo));
+            $table->addRow(array('<comment>'.$project->name_with_namespace.'</comment>', $project->ssh_url_to_repo, implode(', ', $project->tag_list)));
         });
 
         $table->render();
