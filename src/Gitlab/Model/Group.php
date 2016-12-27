@@ -4,7 +4,7 @@ namespace Pitchart\GitlabHelper\Gitlab\Model;
 
 use Pitchart\GitlabHelper as Gh;
 
-class Group
+class Group implements Model
 {
     /**
      * @var int
@@ -47,6 +47,11 @@ class Group
     private $requestAccessEnabled;
 
     /**
+     * @var boolean
+     */
+    private $lfsEnabled;
+
+    /**
      * @var  array
      */
     private $projects;
@@ -67,6 +72,10 @@ class Group
         $this->description = $description;
     }
 
+    /**
+     * @param array $data
+     * @return Group
+     */
     public static function fromArray(array $data) {
         if (!isset($data['id'], $data['name'], $data['path'], $data['description'])) {
             throw new \InvalidArgumentException('Missing at least one key in id, name, path, description');

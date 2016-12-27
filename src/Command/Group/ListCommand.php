@@ -3,6 +3,7 @@
 namespace Pitchart\GitlabHelper\Command\Group;
 
 use Pitchart\Collection\Collection;
+use Pitchart\GitlabHelper\Gitlab\Api\Group;
 use Pitchart\GitlabHelper\Service\GitlabClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -35,21 +36,20 @@ class ListCommand extends Command implements ContainerAwareInterface
         /** @var GitlabClient $gitlabClient */
         $gitlabClient = $this->container->get('gitlab_client');
 
-        $response = $gitlabClient->request('GET', 'groups', array(
+        /** @TODO use DI */
+        $api = new Group($gitlabClient);
+        $groups = $api->all(array(
             'query' => [
                 'search' => $input->getArgument('search'),
                 'per_page' => $input->getOption('nb'),
             ],
         ));
-        $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
-
-        $groups = Collection::from($datas);
 
         $table = new Table($output);
         $table->setHeaders(array('Name', 'Description', 'Path'))->setStyle('borderless');
 
-        $groups->each(function ($group) use ($table) {
-            $table->addRow(array('<comment>'.$group->name.'</comment>', $group->description, $group->path));
+        $groups->each(function (\Pitchart\GitlabHelper\Gitlab\Model\Group $group) use ($table) {
+            $table->addRow(array('<comment>'.$group->getName().'</comment>', $group->getDescription(), $group->getPath()));
         });
 
         $table->render();
