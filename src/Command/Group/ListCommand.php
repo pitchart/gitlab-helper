@@ -3,6 +3,7 @@
 namespace Pitchart\GitlabHelper\Command\Group;
 
 use Pitchart\Collection\Collection;
+use Pitchart\GitlabHelper\Gitlab\Api\Factory;
 use Pitchart\GitlabHelper\Gitlab\Api\Group;
 use Pitchart\GitlabHelper\Service\GitlabClient;
 use Symfony\Component\Console\Command\Command;
@@ -33,11 +34,12 @@ class ListCommand extends Command implements ContainerAwareInterface
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var GitlabClient $gitlabClient */
-        $gitlabClient = $this->container->get('gitlab_client');
+        /** @var Factory $gitlabClient */
+        $apiFactory = $this->container->get('gitlab_api_factory');
 
-        /** @TODO use DI */
-        $api = new Group($gitlabClient);
+        /** @var Group $api */
+        $api = $apiFactory->api('group');
+
         $groups = $api->all(array(
             'query' => [
                 'search' => $input->getArgument('search'),
