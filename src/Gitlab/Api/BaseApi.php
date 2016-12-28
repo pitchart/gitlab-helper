@@ -48,9 +48,9 @@ abstract class BaseApi implements Api
         return new Collection($collection);
     }
 
-    public function post()
+    public function post(array $data)
     {
-        // TODO: Implement post() method.
+        return $this->client->request('POST', $this->basePath, ['form_params' => $data]);
     }
 
     public function delete()

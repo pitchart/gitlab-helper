@@ -33,4 +33,14 @@ class Group extends BaseApi
         }
         return new Collection($collection);
     }
+
+    public function create(\Pitchart\GitlabHelper\Gitlab\Model\Group $group)
+    {
+        return $this->post([
+            'name' => $group->getName(),
+            'path' => $group->getPath(),
+            'desc' => $group->getDescription(),
+            'level' => $group->getVisibilityLevel(),
+        ]);
+    }
 }

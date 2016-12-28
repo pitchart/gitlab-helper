@@ -11,7 +11,11 @@ interface Api
      */
     public function get($id);
 
-    public function post();
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function post(array $data);
 
     public function delete();
 

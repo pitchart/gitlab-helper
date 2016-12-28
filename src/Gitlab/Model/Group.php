@@ -135,11 +135,29 @@ class Group implements Model
     }
 
     /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getVisibilityLevel()
     {
         return $this->visibilityLevel;
+    }
+
+    /**
+     * @param int $visibilityLevel
+     */
+    public function setVisibilityLevel($visibilityLevel)
+    {
+        $this->visibilityLevel = $visibilityLevel;
+        return $this;
     }
 
     /**
