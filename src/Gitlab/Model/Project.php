@@ -198,6 +198,11 @@ class Project implements Model
     private $requestAccessEnabled;
 
     /**
+     * @var
+     */
+    private $permissions;
+
+    /**
      * Project constructor.
      * @param string $name
      */
