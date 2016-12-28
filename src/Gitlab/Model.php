@@ -1,6 +1,7 @@
 <?php
 
-namespace Pitchart\GitlabHelper\Gitlab\Model;
+namespace Pitchart\GitlabHelper\Gitlab;
+
 
 
 interface Model

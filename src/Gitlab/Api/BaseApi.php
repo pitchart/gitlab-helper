@@ -2,9 +2,9 @@
 
 namespace Pitchart\GitlabHelper\Gitlab\Api;
 
-
 use Pitchart\Collection\Collection;
-use Pitchart\GitlabHelper\Gitlab\Model\Model;
+use Pitchart\GitlabHelper\Gitlab\Api;
+use Pitchart\GitlabHelper\Gitlab\Model;
 use Pitchart\GitlabHelper\Service\GitlabClient;
 use Psr\Http\Message\ResponseInterface;
 

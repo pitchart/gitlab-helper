@@ -3,6 +3,7 @@
 namespace Pitchart\GitlabHelper\Gitlab\Model;
 
 use Pitchart\GitlabHelper as Gh;
+use Pitchart\GitlabHelper\Gitlab\Model;
 
 class Group implements Model
 {

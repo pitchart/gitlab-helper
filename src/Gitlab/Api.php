@@ -1,8 +1,6 @@
 <?php
 
-
-namespace Pitchart\GitlabHelper\Gitlab\Api;
-
+namespace Pitchart\GitlabHelper\Gitlab;
 
 interface Api
 {
