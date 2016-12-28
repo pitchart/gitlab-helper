@@ -55,7 +55,7 @@ class Group implements Model
     /**
      * @var  array
      */
-    private $projects;
+    private $projects = [];
 
 
     /**
@@ -65,12 +65,10 @@ class Group implements Model
      * @param string $path
      * @param string $description
      */
-    public function __construct($id, $name, $path, $description)
+    public function __construct($name, $path)
     {
-        $this->id = $id;
         $this->name = $name;
         $this->path = $path;
-        $this->description = $description;
     }
 
     /**
@@ -78,18 +76,27 @@ class Group implements Model
      * @return Group
      */
     public static function fromArray(array $data) {
-        if (!isset($data['id'], $data['name'], $data['path'], $data['description'])) {
+        if (!isset($data['name'], $data['path'])) {
             throw new \InvalidArgumentException('Missing at least one key in id, name, path, description');
         }
-        $group = new self($data['id'], $data['name'], $data['path'], $data['description']);
-        unset($data['id'], $data['name'], $data['path'], $data['description']);
+        $group = new self($data['name'], $data['path']);
+        unset($data['name'], $data['path']);
 
         foreach ($data as $key => $value) {
             $propertyName = Gh\underscoredToLowerCamelCase($key);
             if (!property_exists(self::class, $propertyName)) {
                 throw new \InvalidArgumentException('Invalid key '.$key);
             }
-            $group->$propertyName = $value;
+            if ($propertyName == 'projects' && is_array($value)) {
+                $group->$propertyName = [];
+                foreach ($value as $projectData) {
+
+                    $group->$propertyName = Project::fromArray($projectData);
+                }
+            }
+            else {
+                $group->$propertyName = $value;
+            }
         }
 
         return $group;
