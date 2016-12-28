@@ -8,3 +8,6 @@ services:
   gitlab_client:
     class: 'Pitchart\GitlabHelper\Service\GitlabClient'
     arguments: ['@http_client', '%gitlab.token%', '%gitlab.api_version%']
+  gitlab_api_factory:
+    class: 'Pitchart\GitlabHelper\Gitlab\Api\Factory'
+    arguments: ['@gitlab_client']
