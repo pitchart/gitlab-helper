@@ -8,16 +8,14 @@ class GroupTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testCanBeInstantiated() {
-        $group = new Group(3, 'name', 'path', 'description');
+        $group = new Group('name', 'path');
         $this->assertInstanceOf(Group::class, $group);
     }
 
     public function testCanBeCreatedFromMinimumDatas() {
         $group = Group::fromArray([
-            'id' => 3,
             'name' => 'name',
             'path' => 'path',
-            'description' => 'description',
         ]);
         $this->assertInstanceOf(Group::class, $group);
     }
@@ -59,10 +57,8 @@ class GroupTest extends \PHPUnit_Framework_TestCase
      */
     public function incompleteDataProvider() {
         return [
-            'Missing id' => [['name' => 'name', 'path' => 'path', 'description' => 'description',]],
             'Missing name' => [['id' => 3, 'path' => 'path', 'description' => 'description',]],
             'Missing path' => [['id' => 3, 'name' => 'name', 'description' => 'description',]],
-            'Missing description' => [['id' => 3, 'name' => 'name', 'path' => 'path',]],
         ];
     }
 
