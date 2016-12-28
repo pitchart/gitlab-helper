@@ -3,6 +3,9 @@
 namespace Pitchart\GitlabHelper\Command\Group;
 
 use Pitchart\Collection\Collection;
+use Pitchart\GitlabHelper\Gitlab\Api\Factory;
+use Pitchart\GitlabHelper\Gitlab\Api\Group;
+use Pitchart\GitlabHelper\Gitlab\Model\Project;
 use Pitchart\GitlabHelper\Service\GitlabClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -35,35 +38,36 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var GitlabClient $gitlabClient */
-        $gitlabClient = $this->container->get('gitlab_client');
+        /** @var Factory $gitlabClient */
+        $apiFactory = $this->container->get('gitlab_api_factory');
+
+        /** @var Group $api */
+        $api = $apiFactory->api('group');
 
         $search = $input->getArgument('search');
 
-        $response = $gitlabClient->request('GET', sprintf('groups/%s/projects', $input->getArgument('group')), array(
+        $projects = $api->projects($input->getArgument('group'), [
             'query' => [
                 'search' => $search,
                 'per_page' => $input->getOption('nb'),
             ],
-        ));
-        $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
+        ]);
 
         $table = new Table($output);
         $table->setHeaders(array('Name', 'Path', 'Tags'))->setStyle('borderless');
-        $projects = Collection::from($datas);
 
         if ($search) {
-            $projects = $projects->filter(function($item) use ($search) {
-                $patterns = array_map(function($item) {
-                    return preg_quote($item, '/');
-                }, explode(' ', $search));
-                $content = $item->name_with_namespace.' '.$item->description.' '.$item->path.''.implode(' ', $item->tag_list);
+            $patterns = array_map(function($keyword) {
+                return preg_quote($keyword, '/');
+            }, explode(' ', $search));
+            $projects = $projects->filter(function(Project $project) use ($patterns) {
+                $content = $project->getNameWithNamespace().' '.$project->getDescription().' '.$project->getPath().''.implode(' ', $project->getTagList());
                 return (boolean) preg_match(sprintf('/(%s)/i', implode('|', $patterns)), $content);
             });
         }
 
-        $projects->each(function ($project) use ($table) {
-            $table->addRow(array('<comment>'.$project->name_with_namespace.'</comment>', $project->ssh_url_to_repo, implode(', ', $project->tag_list)));
+        $projects->each(function (Project $project) use ($table) {
+            $table->addRow(array('<comment>'.$project->getNameWithNamespace().'</comment>', $project->getSshUrlToRepo(), implode(', ', $project->getTagList())));
         });
 
         $table->render();
