@@ -49,10 +49,10 @@ class ListCommand extends Command implements ContainerAwareInterface
 
 
         $table = new Table($output);
-        $table->setHeaders(array('Name', 'URL'))->setStyle('borderless');
+        $table->setHeaders(['Name', 'URL'])->setStyle('borderless');
 
         $projects->each(function (Project $project) use ($table) {
-            $table->addRow(array('<comment>'.$project->getNameWithNamespace().'</comment>', $project->getSshUrlToRepo()));
+            $table->addRow(['<comment>'.$project->getNameWithNamespace().'</comment>', $project->getSshUrlToRepo()]);
         });
 
         $table->render();

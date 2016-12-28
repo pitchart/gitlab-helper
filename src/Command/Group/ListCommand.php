@@ -40,18 +40,18 @@ class ListCommand extends Command implements ContainerAwareInterface
         /** @var Group $api */
         $api = $apiFactory->api('group');
 
-        $groups = $api->all(array(
+        $groups = $api->all([
             'query' => [
                 'search' => $input->getArgument('search'),
                 'per_page' => $input->getOption('nb'),
             ],
-        ));
+        ]);
 
         $table = new Table($output);
-        $table->setHeaders(array('Name', 'Description', 'Path'))->setStyle('borderless');
+        $table->setHeaders(['Name', 'Description', 'Path'])->setStyle('borderless');
 
         $groups->each(function (\Pitchart\GitlabHelper\Gitlab\Model\Group $group) use ($table) {
-            $table->addRow(array('<comment>'.$group->getName().'</comment>', $group->getDescription(), $group->getPath()));
+            $table->addRow(['<comment>'.$group->getName().'</comment>', $group->getDescription(), $group->getPath()]);
         });
 
         $table->render();

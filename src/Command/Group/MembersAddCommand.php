@@ -39,22 +39,22 @@ class MembersAddCommand extends Command implements ContainerAwareInterface
 
         $emails->each(function ($email) use ($gitlabClient, $input, $output) {
             try {
-                $response = $gitlabClient->request('GET', 'users', array(
+                $response = $gitlabClient->request('GET', 'users', [
                     'query' => [
                         'search' => $email,
                     ],
-                ));
+                ]);
                 $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
                 if (count($datas) == 1) {
                     $user = $datas[0];
                     try {
-                        $response = $gitlabClient->request('POST', sprintf('groups/%s/members', $input->getArgument('group')), array(
+                        $response = $gitlabClient->request('POST', sprintf('groups/%s/members', $input->getArgument('group')), [
                             'form_params' => [
                                 'id' => $input->getArgument('group'),
                                 'user_id' => $user->id,
                                 'access_level' => $input->getOption('level'),
                             ],
-                        ));
+                        ]);
                         $output->writeln(sprintf("<info>\u{2713} </info> ".'User <info>%s</info> added to group <info>%s</info>', $email, $input->getArgument('group')));
                     } catch (ClientException $e) {
                         $response = \GuzzleHttp\json_decode($e->getResponse()->getBody()->getContents());

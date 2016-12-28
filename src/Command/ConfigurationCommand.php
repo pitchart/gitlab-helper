@@ -31,13 +31,13 @@ class ConfigurationCommand extends Command
         /** @var QuestionHelper $questionHelper */
         $questionHelper = $this->getHelper('question');
 
-        $actualValues = array();
+        $actualValues = [];
 
         foreach ($expectedValues['parameters'] as $name => $parameter) {
             $question = new Question(sprintf('%s <comment>[%s]</comment> : ', $name, $parameter), $parameter);
             $actualValues[$name] = $questionHelper->ask($input, $output, $question);
         }
 
-        file_put_contents(getenv('HOME').'/.gitlab-helper.yml', "# This file is auto-generated during the composer install\n".Yaml::dump(array('parameters' => $actualValues)));
+        file_put_contents(getenv('HOME').'/.gitlab-helper.yml', "# This file is auto-generated during the composer install\n".Yaml::dump(['parameters' => $actualValues]));
     }
 }

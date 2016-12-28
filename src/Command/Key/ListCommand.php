@@ -38,12 +38,12 @@ class ListCommand extends Command implements ContainerAwareInterface
         $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
 
         $table = new Table($output);
-        $table->setHeaders(array('Title', 'Key'))->setStyle('borderless');
+        $table->setHeaders(['Title', 'Key'])->setStyle('borderless');
         $table->setColumnWidths([0, 60]);
         $keys = Collection::from($datas);
 
         $keys->each(function ($key) use ($table) {
-            $table->addRow(array('<comment>'.$key->title.'</comment>', $key->key));
+            $table->addRow(['<comment>'.$key->title.'</comment>', $key->key]);
         });
 
         $table->render();

@@ -54,7 +54,7 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
         ]);
 
         $table = new Table($output);
-        $table->setHeaders(array('Name', 'Path', 'Tags'))->setStyle('borderless');
+        $table->setHeaders(['Name', 'Path', 'Tags'])->setStyle('borderless');
 
         if ($search) {
             $patterns = array_map(function($keyword) {
@@ -67,7 +67,7 @@ class ProjectsCommand extends Command implements ContainerAwareInterface
         }
 
         $projects->each(function (Project $project) use ($table) {
-            $table->addRow(array('<comment>'.$project->getNameWithNamespace().'</comment>', $project->getSshUrlToRepo(), implode(', ', $project->getTagList())));
+            $table->addRow(['<comment>'.$project->getNameWithNamespace().'</comment>', $project->getSshUrlToRepo(), implode(', ', $project->getTagList())]);
         });
 
         $table->render();

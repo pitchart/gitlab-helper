@@ -35,20 +35,20 @@ class MembersCommand extends Command implements ContainerAwareInterface
         /** @var GitlabClient $gitlabClient */
         $gitlabClient = $this->container->get('gitlab_client');
 
-        $response = $gitlabClient->request('GET', sprintf('groups/%s/members', $input->getArgument('group')), array(
+        $response = $gitlabClient->request('GET', sprintf('groups/%s/members', $input->getArgument('group')), [
             'query' => [
                 'per_page' => $input->getOption('nb'),
             ],
-        ));
+        ]);
         $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
 
         $members = Collection::from($datas);
 
         $table = new Table($output);
-        $table->setHeaders(array('ID', 'Name', 'State'))->setStyle('borderless');
+        $table->setHeaders(['ID', 'Name', 'State'])->setStyle('borderless');
 
         $members->each(function ($member) use ($table) {
-            $table->addRow(array('<comment>'.$member->id.'</comment>', $member->name, $member->state));
+            $table->addRow(['<comment>'.$member->id.'</comment>', $member->name, $member->state]);
         });
 
         $table->render();
