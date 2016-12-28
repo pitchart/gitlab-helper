@@ -27,6 +27,8 @@ class Factory
         switch ($type) {
             case 'group':
                 return new Group($this->client);
+            case 'project':
+                return new Project($this->client);
             default:
                 throw new \InvalidArgumentException('Invalid API type '.$type);
         }
