@@ -3,7 +3,10 @@
 namespace Pitchart\GitlabHelper\Command\Group;
 
 use Pitchart\Collection\Collection;
-use Pitchart\GitlabHelper\Service\GitlabClient;
+use Pitchart\GitlabHelper\Gitlab\Api\Group as GroupApi;
+
+use Pitchart\GitlabHelper\Gitlab\Model\AccessLevel;
+use Pitchart\GitlabHelper\Gitlab\Model\User;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -32,23 +35,22 @@ class MembersCommand extends Command implements ContainerAwareInterface
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var GitlabClient $gitlabClient */
-        $gitlabClient = $this->container->get('gitlab_client');
+        /** @var GroupApi $api */
+        $api = $this->container->get('gitlab_api_factory')->api('group');
 
-        $response = $gitlabClient->request('GET', sprintf('groups/%s/members', $input->getArgument('group')), [
+        $members = $api->members($input->getArgument('group'), [
             'query' => [
                 'per_page' => $input->getOption('nb'),
             ],
         ]);
-        $datas = \GuzzleHttp\json_decode($response->getBody()->getContents());
-
-        $members = Collection::from($datas);
 
         $table = new Table($output);
-        $table->setHeaders(['ID', 'Name', 'State'])->setStyle('borderless');
+        $table->setHeaders(['ID', 'Name', 'State', 'Access level'])->setStyle('borderless');
 
-        $members->each(function ($member) use ($table) {
-            $table->addRow(['<comment>'.$member->id.'</comment>', $member->name, $member->state]);
+        $accessLevel = new AccessLevel();
+
+        $members->each(function (User $member) use ($table, $accessLevel) {
+            $table->addRow(['<comment>'.$member->getId().'</comment>', $member->getName(), $member->getState(), $accessLevel->getName($member->getAccessLevel())]);
         });
 
         $table->render();
