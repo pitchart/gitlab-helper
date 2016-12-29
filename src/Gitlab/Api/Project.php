@@ -6,8 +6,6 @@ namespace Pitchart\GitlabHelper\Gitlab\Api;
 class Project extends BaseApi
 {
 
-    protected $basePath = 'projects';
-
     /**
      * @param array $data
      * @return \Pitchart\GitlabHelper\Gitlab\Model\Project

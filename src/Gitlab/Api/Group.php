@@ -8,8 +8,6 @@ use Pitchart\GitlabHelper\Gitlab\Model\Project;
 class Group extends BaseApi
 {
 
-    protected $basePath = 'groups';
-
     /**
      * @param array $data
      * @return \Pitchart\GitlabHelper\Gitlab\Model\Group

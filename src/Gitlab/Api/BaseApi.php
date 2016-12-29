@@ -15,15 +15,19 @@ abstract class BaseApi implements Api
      */
     protected $client;
 
+    /**
+     * @var string
+     */
     protected $basePath = '';
 
     /**
      * BaseApi constructor.
      * @param GitlabClient $client
      */
-    public function __construct(GitlabClient $client)
+    public function __construct(GitlabClient $client, $basePath)
     {
         $this->client = $client;
+        $this->basePath = $basePath;
     }
 
     public function get($id) {
