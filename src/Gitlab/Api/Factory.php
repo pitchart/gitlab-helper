@@ -7,8 +7,15 @@ use Pitchart\GitlabHelper\Service\GitlabClient;
 
 class Factory
 {
-    /** @var GitlabClient */
+    /** @var
+     * GitlabClient
+     */
     private $client;
+
+    /**
+     * @var array
+     */
+    private $apis = [];
 
     /**
      * @param GitlabClient $client
@@ -18,19 +25,23 @@ class Factory
         $this->client = $client;
     }
 
+    public function addApi(Api $api, $alias) {
+        $this->apis[$alias] = $api;
+    }
+
+    public function has($type) {
+        return isset($this->apis[$type]) && $this->apis[$type];
+    }
+
     /**
      * @param string $type
      * @return Api
      */
     public function api($type)
     {
-        switch ($type) {
-            case 'group':
-                return new Group($this->client);
-            case 'project':
-                return new Project($this->client);
-            default:
-                throw new \InvalidArgumentException('Invalid API type '.$type);
+        if (!$this->has($type)) {
+            throw new \InvalidArgumentException('Invalid API type '.$type);
         }
+        return $this->apis[$type];
     }
 }

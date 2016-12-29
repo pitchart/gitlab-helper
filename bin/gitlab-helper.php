@@ -8,7 +8,7 @@ use Pitchart\GitlabHelper\Application;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Pitchart\GitlabHelper\DependencyInjection\ApiCompilerPass;
 
 // default command
 
@@ -28,6 +28,8 @@ else {
 
     $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config/'));
     $loader->load('services.yml');
+
+    $container->addCompilerPass(new ApiCompilerPass());
 
     $container->compile();
 

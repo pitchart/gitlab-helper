@@ -11,3 +11,13 @@ services:
   gitlab_api_factory:
     class: 'Pitchart\GitlabHelper\Gitlab\Api\Factory'
     arguments: ['@gitlab_client']
+  gitlab_api_group:
+    class: 'Pitchart\GitlabHelper\Gitlab\Api\Group'
+    arguments: ['@gitlab_client']
+    tags:
+      - { name: 'gitlab_api', alias: 'group' }
+  gitlab_api_project:
+    class: 'Pitchart\GitlabHelper\Gitlab\Api\Project'
+    arguments: ['@gitlab_client']
+    tags:
+      - { name: 'gitlab_api', alias: 'project' }
